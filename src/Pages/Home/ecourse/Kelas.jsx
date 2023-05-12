@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import kelas1 from '../../../Images/kelas/kelas1.jpg';
-import kelas2 from '../../../Images/kelas/kelas2.jpg';
 import Home from '../../../Layouts/Home';
 import axios from 'axios';
 
@@ -11,6 +9,9 @@ function Kelas() {
   useEffect(() => {
     axios.get(`https://api-academy.onlenkan.com/api/get-courses`).then((response) => setCourseData(response.data.data));
   }, []);
+
+  const [id, setID] = useState(null);
+
   return (
     <Home>
       <section className="ecourse-list" id="kelas">
@@ -19,10 +20,10 @@ function Kelas() {
           <p className="section-description">Pilih kelas unggulan untuk tingkatkan keahlian kamu!</p>
 
           <div className="row mt-5">
-            {CourseData.map((data) => {
+            {CourseData.map((data, index) => {
               return (
                 <div className="col-md-4">
-                  <Link to="/kelas/kelas-detail" className="card border-0 card-value rounded-3 text-decoration-none mb-3">
+                  <Link to={`/kelas/` + data.slug} className="card border-0 card-value rounded-3 text-decoration-none mb-3">
                     <img src={`https://api-academy.onlenkan.com/storage/public/` + data.cover} className="card-img-top" />
 
                     <div className="card-body p-0 py-2">
@@ -31,7 +32,7 @@ function Kelas() {
                       </span>
                       <h6 className="text-dark fw-semibold mb-2 pe-2 border-end border-primary">{data.title}</h6>
                       <div className="d-flex align-items-center gap-2">
-                        <p className="text-dark fw-semibold m-0">{data.price}</p>
+                        <p className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</p>
                       </div>
                     </div>
                   </Link>

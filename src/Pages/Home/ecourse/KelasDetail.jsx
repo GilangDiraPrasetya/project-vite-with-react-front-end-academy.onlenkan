@@ -1,12 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { ChevronRight, Play, Edit, WhatsappFill } from 'akar-icons';
+import Home from '../../../Layouts/Home';
 import kelas1 from '../../../Images/kelas/kelas1.jpg';
 import kelas2 from '../../../Images/kelas/kelas2.jpg';
 import person from '../../../Images/artikel/person1.png';
-import Home from '../../../Layouts/Home';
+
+import axios from 'axios';
 
 function KelasDetail() {
+  const [data, setData] = useState([]);
+  const { slug } = useParams();
+  useEffect(() => {
+    axios.get(`https://api-academy.onlenkan.com/api/get-courses/show/` + slug).then((response) => setData(response.data.course));
+  }, []);
+
   return (
     <Home>
       <section className="ecourse-detail pt-4">
@@ -20,20 +28,19 @@ function KelasDetail() {
               Kelas
             </Link>
             <ChevronRight />
-            <p className="text-black fs-7">Mastering Laravel | From Zero to Hero</p>
+            <p className="text-black fs-7">{data.title}</p>
           </div>
 
-          <h2 className="fs-3 fw-semibold text-dark mb-3">Mastering Laravel | From Zero to Hero</h2>
+          <h2 className="fs-3 fw-semibold text-dark mb-3">{data.title}</h2>
           <span className="bg-soft-blue text-primary fs-7 rounded-3" style={{ padding: '8px 20px', fontWeight: '500px' }}>
-            Full-Stack WEB Developer
+            {data.category}
           </span>
 
           <div className="row mt-5">
             <div className="col-md-6">
               <img src={kelas1} alt="" className="rounded-3 mb-5" />
               <h4 className="fs-5 mb-2">Deskripsi Kelas</h4>
-              Disini kita akan belajar Framework Laravel dari tingkat dasar sampai tingkat mahir, disertai teori dan juga praktek. Dengan meggunakan Laravel, kita bisa membuat aplikasi baik itu front-end maupun back-end sekaligus. Oleh
-              karena itu saat ini Laravel menjadi salah satu teknologi yang sangat diminati oleh programmer. Kamu akan diajari dari 0 atau pemula menjadi pro dalam mempuat project Laravel atau website.
+              {data.description}
             </div>
 
             <div className="col-md-6">
@@ -55,7 +62,7 @@ function KelasDetail() {
               </div>
               <div className="card mb-3 mb-md-5">
                 <div className="card-body p-3 p-md-4 d-none d-md-block">
-                  <h5 className="fw-semibold fs-4">Rp. 300,000</h5>
+                  <h5 className="fw-semibold fs-4">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</h5>
                   <a href="" className="btn btn-primary d-flex align-items-center gap-2 w-100 py-2 py-md-3 px-2 px-md-4 mb-2 mt-4">
                     <Edit />
                     Lanjutkan Pembelajaran

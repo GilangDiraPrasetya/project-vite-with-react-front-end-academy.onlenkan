@@ -15,9 +15,9 @@ import Register from '../Auth/Register';
 export default function Home() {
   return (
     <Routes>
-      <Route path="/" element={<Beranda />} />
+      <Route path="/" exact element={<Beranda />} />
       <Route path="/kelas" element={<Kelas />} />
-      <Route path="/kelas/kelas-detail" element={<KelasDetail />} />
+      <Route path="/kelas/:slug" element={<KelasDetail />} />
       <Route path="/event" element={<Event />} />
       <Route path="/event/event-detail" element={<EventDetail />} />
       <Route path="/source-code" element={<SourceCode />} />

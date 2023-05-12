@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import kelas1 from '../.././Images/kelas/kelas1.jpg';
-import kelas2 from '../.././Images/kelas/kelas2.jpg';
 import artikel1 from '../.././Images/artikel/artikel1.png';
 import person1 from '../.././Images/artikel/person1.png';
 import { Edit, Person, Draft, Newspaper } from 'akar-icons';
@@ -55,7 +53,7 @@ function Beranda() {
                       </span>
                       <h6 className="text-dark fw-semibold mb-2 pe-2 border-end border-primary">{data.title}</h6>
                       <div className="d-flex align-items-center gap-2">
-                        <p className="text-dark fw-semibold m-0">{data.price}</p>
+                        <p className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</p>
                       </div>
                     </div>
                   </Link>
