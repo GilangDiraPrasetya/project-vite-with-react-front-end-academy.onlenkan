@@ -3,6 +3,7 @@ import React from 'react';
 import Beranda from '../Pages/Home/Beranda';
 import Kelas from '../Pages/Home/ecourse/Kelas';
 import KelasDetail from '../Pages/Home/ecourse/KelasDetail';
+import KelasCheckout from '../Pages/Home/ecourse/Checkout';
 import Event from '../Pages/Home/event/Event';
 import EventDetail from '../Pages/Home/event/EventDetail';
 import SourceCode from '../Pages/Home/resources/SourceCode';
@@ -18,6 +19,7 @@ export default function Home() {
       <Route path="/" exact element={<Beranda />} />
       <Route path="/kelas" element={<Kelas />} />
       <Route path="/kelas/:slug" element={<KelasDetail />} />
+      <Route path="/kelas/:slug/checkout" element={<KelasCheckout />} />
       <Route path="/event" element={<Event />} />
       <Route path="/event/event-detail" element={<EventDetail />} />
       <Route path="/source-code" element={<SourceCode />} />

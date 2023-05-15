@@ -45,7 +45,7 @@ function Beranda() {
             {CourseData.map((data) => {
               return (
                 <div className="col-md-4">
-                  <Link to="/kelas/kelas-detail" className="card border-0 card-value rounded-3 text-decoration-none mb-3">
+                  <Link to={`/kelas/` + data.slug} className="card border-0 card-value rounded-3 text-decoration-none mb-3">
                     <img src={`https://api-academy.onlenkan.com/storage/public/` + data.cover} className="card-img-top" />
                     <div className="card-body p-0 py-2">
                       <span className="d-inline-block text-primary fw-semibold mb-1" style={{ fontSize: '12px' }}>
@@ -53,7 +53,14 @@ function Beranda() {
                       </span>
                       <h6 className="text-dark fw-semibold mb-2 pe-2 border-end border-primary">{data.title}</h6>
                       <div className="d-flex align-items-center gap-2">
-                        <p className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</p>
+                        {data.price_discount > 0 ? (
+                          <>
+                            <p className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price_discount)}</p>
+                            <p className="text-danger text-decoration-line-through fs-7 fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</p>
+                          </>
+                        ) : (
+                          <p className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</p>
+                        )}
                       </div>
                     </div>
                   </Link>
