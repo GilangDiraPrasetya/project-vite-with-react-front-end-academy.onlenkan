@@ -40,7 +40,6 @@ function Kelas() {
                         ) : (
                           <p className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</p>
                         )}
-                        {/* <p className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</p> */}
                       </div>
                     </div>
                   </Link>

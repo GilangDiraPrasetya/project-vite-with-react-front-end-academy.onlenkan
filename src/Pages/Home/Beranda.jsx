@@ -13,6 +13,8 @@ function Beranda() {
     axios.get(`https://api-academy.onlenkan.com/api/get-courses`).then((response) => setCourseData(response.data.data));
   }, []);
 
+  const [id, setID] = useState(null);
+
   return (
     <Home>
       <section className="hero" id="hero">

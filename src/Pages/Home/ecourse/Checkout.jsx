@@ -17,10 +17,10 @@ function KelasCheckout() {
 
   return (
     <Home>
-      <form id="form" action="{{ route('home.ecourse.confirm') }}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="ecourse_id" id="ecourse_id" value="{{ $ecourse->id }}" />
+      <form id="form" action="#" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="ecourse_id" id="ecourse_id" value={data.id} />
         <input type="hidden" name="voucher" id="voucher" />
-        <input type="hidden" name="price" id="price" value="{{ $ecourse->price_discount > 0 ? $ecourse->price_discount : $ecourse->price }}" />
+        <input type="hidden" name="price" id="price" value={data.price_discount > 0 ? data.price_discount : data.price} />
 
         <section className="ecourse-detail pt-4">
           <div className="container">
@@ -45,7 +45,7 @@ function KelasCheckout() {
               <div className="col-md-4">
                 <div className="card bg-white rounded-3 shadow-sm border-0 mb-3">
                   <div className="card-body p-3 p-md-4">
-                    <img src="{{ url('storage/' . $ecourse->image) }}" className="rounded-3 mb-3" alt="" />
+                    <img src="" className="rounded-3 mb-3" alt="" />
                     <h5 className="fw-semibold text-dark">{data.title}</h5>
                   </div>
                 </div>
@@ -75,8 +75,8 @@ function KelasCheckout() {
                                         </tr>
                                     @endif */}
                       {/* <tr className="pb-2" id="discount-area"
-                                        style="vertical-align: middle; {{ $ecourse->price_discount == 0 ? 'display: none' : '' }}">
-                                        <td>Diskon</td>
+                                        style={{verticalAlign: 'middle' {data.price_discount == 0 ? 'display: none' : '' }}">
+                                        <td>Diskon</td
                                         <td>
                                             <p className="mb-0 text-dark fw-semibold" id="discount">
                                                 @if ($ecourse->price > 0)
@@ -102,17 +102,17 @@ function KelasCheckout() {
                                     </tr> */}
                     </table>
 
-                    {ecourse.price > 0 && (
+                    {data.price > 0 && (
                       <div>
                         <h5 className="fw-semibold text-dark mb-3 mt-5">Transfer Pembayaran</h5>
-                        <img src={url('assets/images/bank-logo-mandiri.png')} alt="Bank Mandiri Logo" width="80" className="mb-3" />
+                        <img src="" alt="Bank Mandiri Logo" width="80" className="mb-3" />
                         <p className="text-dark fw-normal">Gamma Kristian</p>
                         <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
                           <h5 className="text-dark fw-semibold" id="bankAccountNumber">
                             1430015944976
                           </h5>
                           <div className="d-flex align-items-center gap-2">
-                            <i className="ai-copy fs-5" style={{ cursor: 'pointer' }} onClick={copyToClipboardRekening}></i>
+                            <i className="ai-copy fs-5" style={{ cursor: 'pointer' }} onClick=""></i>
                             <p className="fs-7 text-secondary" id="copyBtn"></p>
                           </div>
                         </div>
@@ -125,7 +125,7 @@ function KelasCheckout() {
                     )}
 
                     <a href="#" className="btn btn-primary py-2 py-md-3 px-3 px-md-4 d-block w-100" data-bs-toggle="modal" data-bs-target="#modalConfirm">
-                      {/* {{ $ecourse->price > 0 ? 'Konfirmasi Pembayaran' : 'Daftar Sekarang' }} */}daftar
+                      {/* {{ data.price > 0 ? 'Konfirmasi Pembayaran' : 'Daftar Sekarang' }} */}Daftar Sekarang
                     </a>
                   </div>
                 </div>

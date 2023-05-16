@@ -11,9 +11,13 @@ import axios from 'axios';
 function KelasDetail() {
   const [data, setData] = useState([]);
   const { slug } = useParams();
+
   useEffect(() => {
+    // axios.get(`https://api-academy.onlenkan.com/api/get-courses/show/belajar-nodejs-dari-dasar-hingga-mahir`).then((response) => setData(response.data.course));
     axios.get(`https://api-academy.onlenkan.com/api/get-courses/show/` + slug).then((response) => setData(response.data.course));
   }, []);
+
+  console.log(data);
 
   return (
     <Home>
@@ -46,45 +50,44 @@ function KelasDetail() {
             <div className="col-md-6">
               <h4 className="fs-5 mb-2">Konten Kelas</h4>
               <div className="accordion mb-5" id="accordionContent">
-                {data.course_sections.map((section) => (
-                  <div className="accordion-item border-0 p-0 border-bottom" style={{ borderColor: '#7a7a7a' }}>
-                    <p className="fs-6 fw-semibold accordion-header" id="headingOne">
-                      <button className={`accordion-button text-dark bg-white border-none shadow-none ${section.order !== 1 && 'collapsed'}`} type="button" data-bs-toggle="collapse" data-bs-target={`#section${section.id}`}>
-                        {section.title}
-                      </button>
-                    </p>
-                    <div id={`section${section.id}`} className={`accordion-collapse collapse ${section.order === 1 && 'show'}`}>
-                      <div className="accordion-body">
-                        {data.course_contents.map((content) => {
-                          if (content.course_sections.id === section.id) {
-                            return (
-                              <div className="text-secondary d-flex align-items-center gap-3 border-bottom border-light py-2">
-                                <span className="bg-secondary text-white p-2 d-flex align-items-center justify-content-center rounded-circle" style={{ width: '24px', height: '24px' }}>
-                                  <i className="ai-play" style={{ fontSize: '14px', marginLeft: '2px' }}></i>
-                                </span>
-                                {content.title}
-                              </div>
-                            );
-                          }
-                        })}
+                {data.course_sections?.map((section) => {
+                  return (
+                    <div className="accordion-item border-0 p-0 border-bottom" style={{ borderColor: '#7a7a7a' }}>
+                      <p className="fs-6 fw-semibold accordion-header" id="headingOne">
+                        <button className={`accordion-button text-dark bg-white border-none shadow-none ${section.order !== 1 && 'collapsed'}`} type="button" data-bs-toggle="collapse" data-bs-target={`#section${section.id}`}>
+                          {section.title}
+                        </button>
+                      </p>
+                      <div id={`section${section.id}`} className={`accordion-collapse collapse ${section.order === 1 && 'show'}`}>
+                        <div className="accordion-body">
+                          {section.course_contents.map((content) => {
+                            if (content.course_section_id === section.uuid) {
+                              return (
+                                <div className="text-secondary d-flex align-items-center gap-3 border-bottom border-light py-2">
+                                  <span className="bg-secondary text-white p-2 d-flex align-items-center justify-content-center rounded-circle" style={{ width: '24px', height: '24px' }}>
+                                    <i className="ai-play" style={{ fontSize: '14px', marginLeft: '2px' }}></i>
+                                  </span>
+                                  {content.title}
+                                </div>
+                              );
+                            }
+                          })}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+
               <div className="card mb-3 mb-md-5">
                 <div className="card-body p-3 p-md-4 d-none d-md-block">
                   {data.price_discount > 0 ? (
                     <>
-                      <span className="fs-7 text-danger text-decoration-line-through fw-semibold">
-                        <h5 className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price_discount)}</h5>
-                      </span>
-                      <h5 className="fw-semibold fs-4">
-                        <h5 className="text-danger text-decoration-line-through fs-7 fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</h5>
-                      </h5>
+                      <span className="fs-7 text-danger text-decoration-line-through fw-semibold">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price_discount)}</span>
+                      <h5 className="fw-semibold fs-4">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</h5>
                     </>
                   ) : (
-                    <h5 className="text-dark fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</h5>
+                    <h5 className="fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</h5>
                   )}
                   {/* {data.member > 0 ? (
                     <a href={route('member.kelas-saya')} className="btn btn-primary d-flex align-items-center gap-2 w-100 py-2 py-md-3 px-2 px-md-4 mb-2 mt-4">
@@ -117,7 +120,7 @@ function KelasDetail() {
                 <div className="card-body p-3 p-md-4">
                   <h5 className="fs-6 fw-semibold">Mentor Kelas</h5>
 
-                  <div className="d-flex align-items-center gap-2">
+                  {/* <div className="d-flex align-items-center gap-2">
                     <img src={person} alt="" className="rounded-circle" style={{ objectFit: 'cover', width: 36, height: 36 }} />
                     <div>
                       <p className="text-dark">{data.instructor.name}</p>
@@ -125,7 +128,7 @@ function KelasDetail() {
                         {data.instructor.position} at {data.instructor.from}
                       </span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
