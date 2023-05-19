@@ -14,19 +14,19 @@ function Footer() {
 
               <div className="d-flex align-items-center gap-3 social-media">
                 <a href="https://www.facebook.com/onlenkan/" target="_blank" className="btn d-flex align-items-center justify-content-center">
-                  <FacebookFill />
+                  <i className="ai-facebook-fill"></i>
                 </a>
                 <a href="https://www.instagram.com/onlenkan_/" target="_blank" className="btn d-flex align-items-center justify-content-center">
-                  <InstagramFill />
+                  <i className="ai-instagram-fill"></i>
                 </a>
                 <a href="https://www.linkedin.com/company/onlenkan-com" target="_blank" className="btn d-flex align-items-center justify-content-center">
-                  <LinkedinFill />
+                  <i className="ai-linkedin-fill"></i>
                 </a>
                 <a href="https://www.youtube.com/channel/UCAzhFjJUW_ikWeIfsdDKCFw" target="_blank" className="btn d-flex align-items-center justify-content-center">
-                  <YoutubeFill />
+                  <i className="ai-youtube-fill"></i>
                 </a>
                 <a href="https://www.tiktok.com/@onlenkan_?lang=en" target="_blank" className="btn d-flex align-items-center justify-content-center">
-                  <TiktokFill />
+                  <i className="ai-tiktok-fill"></i>
                 </a>
               </div>
             </div>

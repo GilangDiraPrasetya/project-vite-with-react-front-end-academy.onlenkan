@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ChevronRight, Play, Edit, WhatsappFill } from 'akar-icons';
 import Home from '../../../Layouts/Home';
 import kelas1 from '../../../Images/kelas/kelas1.jpg';
-import kelas2 from '../../../Images/kelas/kelas2.jpg';
 import person from '../../../Images/artikel/person1.png';
 
 import axios from 'axios';
@@ -27,11 +25,11 @@ function KelasDetail() {
             <Link to="/" className="fs-7">
               Home
             </Link>
-            <ChevronRight />
+            <i className="ai-chevron-right"></i>
             <Link to="/kelas" className="fs-7">
               Kelas
             </Link>
-            <ChevronRight />
+            <i className="ai-chevron-right"></i>
             <p className="text-black fs-7">{data.title}</p>
           </div>
 
@@ -83,8 +81,8 @@ function KelasDetail() {
                 <div className="card-body p-3 p-md-4 d-none d-md-block">
                   {data.price_discount > 0 ? (
                     <>
-                      <span className="fs-7 text-danger text-decoration-line-through fw-semibold">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price_discount)}</span>
-                      <h5 className="fw-semibold fs-4">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</h5>
+                      <span className="fs-7 text-danger text-decoration-line-through fw-semibold">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</span>
+                      <h5 className="fw-semibold fs-4">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price_discount)}</h5>
                     </>
                   ) : (
                     <h5 className="fw-semibold m-0">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</h5>
@@ -101,18 +99,18 @@ function KelasDetail() {
                     </a>
                   )} */}
                   <a href="" className="btn btn-primary d-flex align-items-center gap-2 w-100 py-2 py-md-3 px-2 px-md-4 mb-2 mt-4">
-                    <Edit />
+                    <i className="ai-edit"></i>
                     Lanjutkan Pembelajaran
                   </a>
                   <Link to={`/kelas/` + data.slug + `/checkout`} className="btn btn-primary d-flex align-items-center gap-2 w-100 py-2 py-md-3 px-2 px-md-4 mb-2 mt-4">
-                    <Edit />
+                    <i className="ai-edit"></i>
                     Checkout Kelas
                   </Link>
                   <a
                     href="https://api.whatsapp.com/send?phone=6285159698221&text=Halo%20min!%20Saya%20mau%20bertanya%20tentang%20kelas%20*`${data.title}`*%0A%0A"
                     className="btn btn-outline-success d-flex align-items-center gap-2 w-100 py-2 py-md-3 px-2 px-md-4"
                   >
-                    <WhatsappFill />
+                    <i className="ai-whatsapp-fill"></i>
                     Tanya Kelas
                   </a>
                 </div>
@@ -120,15 +118,15 @@ function KelasDetail() {
                 <div className="card-body p-3 p-md-4">
                   <h5 className="fs-6 fw-semibold">Mentor Kelas</h5>
 
-                  {/* <div className="d-flex align-items-center gap-2">
-                    <img src={person} alt="" className="rounded-circle" style={{ objectFit: 'cover', width: 36, height: 36 }} />
-                    <div>
+                  <div className="d-flex align-items-center gap-2">
+                    <img src={person} alt="" className="rounded-circle" style={{ objectFit: 'cover', width: '36px', height: '36px' }} />
+                    {/* <div>
                       <p className="text-dark">{data.instructor.name}</p>
                       <span className="text-secondary fs-7">
                         {data.instructor.position} at {data.instructor.from}
                       </span>
-                    </div>
-                  </div> */}
+                    </div> */}
+                  </div>
                 </div>
               </div>
             </div>

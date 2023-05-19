@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import artikel1 from '../.././Images/artikel/artikel1.png';
 import person1 from '../.././Images/artikel/person1.png';
-import { Edit, Person, Draft, Newspaper } from 'akar-icons';
 import Home from '../../Layouts/Home';
 import axios from 'axios';
 
@@ -124,7 +123,7 @@ function Beranda() {
               <div className="card border-0 card-value rounded-3 mb-3">
                 <div className="card-body p-3 p-md-4">
                   <div className="icon mb-3 rounded-circle bg-primary text-white">
-                    <Edit />
+                    <i className="ai-edit"></i>
                   </div>
                   <h5 className="text-dark fw-semibold mb-2">Mudah Dipelajari</h5>
                   <p className="text-secondary">Materi disusun rapi dengan penyampaian yang mudah diterima sekalipun kepada pemula.</p>
@@ -135,7 +134,7 @@ function Beranda() {
               <div className="card border-0 card-value rounded-3 mb-3">
                 <div className="card-body p-3 p-md-4">
                   <div className="icon mb-3 rounded-circle bg-primary text-white">
-                    <Person />
+                    <i className="ai-person"></i>
                   </div>
                   <h5 className="text-dark fw-semibold mb-2">Mentor Berpengalaman</h5>
                   <p className="text-secondary">Dibimbing oleh mentor atau programmer hebat yang telah berpengalaman lama di bidangnya.</p>
@@ -146,7 +145,7 @@ function Beranda() {
               <div className="card border-0 card-value rounded-3 mb-3">
                 <div className="card-body p-3 p-md-4">
                   <div className="icon mb-3 rounded-circle bg-primary text-white">
-                    <Draft />
+                    <i className="ai-draft"></i>
                   </div>
                   <h5 className="text-dark fw-semibold mb-2">Waktu Fleksibel</h5>
                   <p className="text-secondary">Kapanpun dan dimanapun kamu berada, kamu masih bisa mengembangkan skill di Platform.</p>
@@ -157,7 +156,7 @@ function Beranda() {
               <div className="card border-0 card-value rounded-3 mb-3">
                 <div className="card-body p-3 p-md-4">
                   <div className="icon mb-3 rounded-circle bg-primary text-white">
-                    <Newspaper />
+                    <i className="ai-newspaper"></i>
                   </div>
                   <h5 className="text-dark fw-semibold mb-2">Sertifikat</h5>
                   <p className="text-secondary">

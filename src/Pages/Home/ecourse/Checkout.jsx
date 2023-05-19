@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ChevronRight, Play, Edit, WhatsappFill } from 'akar-icons';
 import Home from '../../../Layouts/Home';
-import kelas1 from '../../../Images/kelas/kelas1.jpg';
-import kelas2 from '../../../Images/kelas/kelas2.jpg';
-import person from '../../../Images/artikel/person1.png';
 
 import axios from 'axios';
 
@@ -28,15 +24,15 @@ function KelasCheckout() {
               <Link to="/" className="fs-7">
                 Home
               </Link>
-              <ChevronRight />
+              <i className="ai-chevron-right"></i>
               <Link to="/kelas" className="fs-7">
                 Kelas
               </Link>
-              <ChevronRight />
+              <i className="ai-chevron-right"></i>
               <Link to={`/kelas/` + data.slug} className="fs-7">
                 {data.slug}
               </Link>
-              <ChevronRight />
+              <i className="ai-chevron-right"></i>
               <p class="text-black fs-7">Checkout</p>
             </div>
 
@@ -74,19 +70,14 @@ function KelasCheckout() {
                                             </td>
                                         </tr>
                                     @endif */}
-                      {/* <tr className="pb-2" id="discount-area"
-                                        style={{verticalAlign: 'middle' {data.price_discount == 0 ? 'display: none' : '' }}">
-                                        <td>Diskon</td
-                                        <td>
-                                            <p className="mb-0 text-dark fw-semibold" id="discount">
-                                                @if ($ecourse->price > 0)
-                                                    {{ $ecourse->price_discount > 0 ? 'Rp. ' . number_format($ecourse->price_discount) : 'Tidak Ada Diskon' }}
-                                                @else
-                                                    GRATIS
-                                                @endif
-                                            </p>
-                                        </td>
-                                    </tr> */}
+                      <tr className="pb-2" id="discount-area" style={{ verticalAlign: 'middle', display: data.price_discount === 0 ? 'none' : '' }}>
+                        <td>Diskon</td>
+                        <td>
+                          <p className="mb-0 text-dark fw-semibold" id="discount">
+                            {data.price > 0 ? data.price_discount > 0 ? <span>data.price_discount</span> : <span>Tidak Ada Diskon</span> : <span>GRATIS</span>}
+                          </p>
+                        </td>
+                      </tr>
                       {/* <tr className="pb-2" style="vertical-align: middle">
                                         <td>Total Bayar</td>
                                         <td>
