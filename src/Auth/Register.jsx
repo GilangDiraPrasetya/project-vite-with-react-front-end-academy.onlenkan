@@ -70,10 +70,11 @@
 // export default Register;
 
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 import background from '.././Images/register-image.jpg';
 import logo from '.././Images/logo-official-blue.png';
-import { EyeOpen, EyeSlashed } from 'akar-icons';
-import { Link } from 'react-router-dom';
 
 const Register = () => {
   <script src="https://unpkg.com/akar-icons-fonts"></script>;
@@ -88,9 +89,42 @@ const Register = () => {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
-  const handleSubmit = (e) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+
+  const [validation, setValidation] = useState([]);
+
+  const navigate = useNavigate();
+
+  //function "registerHanlder"
+  const registerHandler = async (e) => {
     e.preventDefault();
-    // Handle form submission
+
+    //initialize formData
+    const formData = new FormData();
+
+    //append data to formData
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('phone_number', phoneNumber);
+    formData.append('password', password);
+    formData.append('password_confirmation', passwordConfirmation);
+
+    //send data to server
+    await axios
+      .post('https://api-academy.onlenkan.com/api/register', formData)
+      .then(() => {
+        //redirect to login page
+        navigate('/login');
+        // console.log(formData);
+      })
+      .catch((error) => {
+        //assign error to state "validation"
+        setValidation(error.response.data);
+      });
   };
 
   return (
@@ -106,39 +140,67 @@ const Register = () => {
               <p className="text-secondary text-center mb-3">Daftarkan Dirimu dan Jadilah Onleners yg selalu harus Belajar!</p>
               <hr className="mb-5 w-75 mx-auto" />
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={registerHandler}>
                 <div className="mb-3">
                   <label htmlFor="name">Nama Lengkap</label>
-                  <input type="text" name="name" id="name" className="form-control" placeholder="Nama Lengkap . . ." required autoFocus />
+                  <input type="text" name="name" id="name" className="form-control" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nama Lengkap . . ." required autoFocus />
                 </div>
+                {validation.name && <div className="alert alert-danger">{validation.name[0]}</div>}
+
                 <div className="mb-3">
                   <label htmlFor="email">Email</label>
-                  <input type="email" name="email" id="email" className="form-control" placeholder="Alamat Email . . ." required />
+                  <input type="email" name="email" id="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Alamat Email . . ." required />
                 </div>
+                {validation.email && <div className="alert alert-danger">{validation.email[0]}</div>}
+
                 <div className="mb-3">
                   <label htmlFor="phone_number">Nomor Telepon/WhatsApp</label>
-                  <input type="number" name="phone_number" id="phone_number" className="form-control" placeholder="Ex: 628123456789 . . ." required />
+                  <input type="number" name="phone_number" id="phone_number" className="form-control" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} placeholder="Ex: 628123456789 . . ." required />
                 </div>
+                {validation.phoneNumber && <div className="alert alert-danger">{validation.phoneNumber[0]}</div>}
+
                 <div className="mb-3">
                   <label htmlFor="password">Password</label>
                   <div className="input-group">
-                    <input type={passwordVisible ? 'text' : 'password'} name="password" id="password" className="form-control border-end-0" placeholder="Masukkan Passwordmu . . ." required autoComplete="current-password" />
+                    <input
+                      type={passwordVisible ? 'text' : 'password'}
+                      name="password"
+                      id="password"
+                      className="form-control border-end-0"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Masukkan Passwordmu . . ."
+                      required
+                      autoComplete="current-password"
+                    />
                     <span className="input-group-text bg-white border-start-0" style={{ cursor: 'pointer' }} onClick={togglePasswordVisibility}>
                       <i className={passwordVisible ? 'ai-eye-slashed' : 'ai-eye-open'}></i>
                     </span>
                   </div>
+                  {validation.password && <div className="alert alert-danger">{validation.password[0]}</div>}
                 </div>
+
                 <div className="mb-3">
                   <label htmlFor="password-confirm">Konfirmasi Password</label>
                   <div className="input-group">
-                    <input type={confirmPasswordVisible ? 'text' : 'password'} id="password-confirm" className="form-control border-end-0" name="password_confirmation" required autoComplete="new-password" />
+                    <input
+                      type={confirmPasswordVisible ? 'text' : 'password'}
+                      id="password-confirm"
+                      className="form-control border-end-0"
+                      value={passwordConfirmation}
+                      onChange={(e) => setPasswordConfirmation(e.target.value)}
+                      name="password_confirmation"
+                      required
+                      autoComplete="new-password"
+                    />
                     <span className="input-group-text bg-white border-start-0" style={{ cursor: 'pointer' }} onClick={toggleConfirmPasswordVisibility}>
                       <i className={confirmPasswordVisible ? 'ai-eye-slashed' : 'ai-eye-open'}></i>
                     </span>
                   </div>
+                  {validation.passwordConfirmation && <div className="alert alert-danger">{validation.passwordConfirmation[0]}</div>}
                 </div>
 
-                <button className="btn btn-primary w-100" type="submit">
+                <button id="submit" className="btn btn-primary w-100" type="submit">
                   Register
                 </button>
                 <p className="text-secondary text-center mt-2">

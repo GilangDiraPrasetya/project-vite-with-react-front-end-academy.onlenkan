@@ -15,7 +15,7 @@ function KelasDetail() {
     axios.get(`https://api-academy.onlenkan.com/api/get-courses/show/` + slug).then((response) => setData(response.data.course));
   }, []);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <Home>
