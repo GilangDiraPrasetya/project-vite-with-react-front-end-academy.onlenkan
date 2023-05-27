@@ -3,18 +3,20 @@ import { Link, useParams } from 'react-router-dom';
 import Home from '../../../Layouts/Home';
 
 import axios from 'axios';
+import Api from '../../../Api';
 
 function KelasCheckout() {
   const [data, setData] = useState([]);
   const { slug } = useParams();
   useEffect(() => {
-    axios.get(`https://api-academy.onlenkan.com/api/get-courses/show/` + slug).then((response) => setData(response.data.course));
+    // axios.get(`https://api-academy.onlenkan.com/api/get-courses/show/` + slug).then((response) => setData(response.data.course));
+    Api.get('get-courses/show/' + slug).then((response) => setData(response.data.course));
   }, []);
 
   return (
     <Home>
-      <form id="form" action="#" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="ecourse_id" id="ecourse_id" value={data.id} />
+      <form id="form" onSubmit="">
+        <input type="hidden" name="course_id" id="course_id" value={data.id} />
         <input type="hidden" name="voucher" id="voucher" />
         <input type="hidden" name="price" id="price" value={data.price_discount > 0 ? data.price_discount : data.price} />
 
@@ -53,7 +55,7 @@ function KelasCheckout() {
                     <table className="table">
                       <tr className="pb-2" style={{ verticalAlign: 'middle' }}>
                         <td style={{ color: 'grey' }}>Harga Kelas</td>
-                        <td style={{ color: 'black' }}>Rp. 900.000</td>
+                        <td style={{ color: 'black' }}>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data.price)}</td>
                       </tr>
                       {/* @if ($voucher != null)
                                         <tr className="pb-2" style="vertical-align: middle">
@@ -70,27 +72,28 @@ function KelasCheckout() {
                                             </td>
                                         </tr>
                                     @endif */}
-                      <tr className="pb-2" id="discount-area" style={{ verticalAlign: 'middle', display: data.price_discount === 0 ? 'none' : '' }}>
-                        <td>Diskon</td>
+                      {data.price_discount > 0 && (
+                        <tr className="pb-2" style={{ verticalAlign: 'middle' }}>
+                          <td>Diskon</td>
+                          <td>
+                            <p className="mb-0 text-dark fw-semibold">Rp. {data.price_discount > 0 ? new Intl.NumberFormat().format(data.price_discount) : 'Tidak Ada Diskon'}</p>
+                          </td>
+                        </tr>
+                      )}
+                      {/* <tr className="pb-2" style={{ verticalAlign: 'middle' }}>
+                        <td>Total Bayar</td>
                         <td>
-                          <p className="mb-0 text-dark fw-semibold" id="discount">
-                            {data.price > 0 ? data.price_discount > 0 ? <span>data.price_discount</span> : <span>Tidak Ada Diskon</span> : <span>GRATIS</span>}
+                          <p className="mb-0 text-dark fw-semibold">{data.price > 0 ? `Rp. ${data.price.toLocaleString()}` : 'GRATIS'}</p>
+                        </td>
+                      </tr> */}
+                      <tr className="pb-2" style={{ verticalAlign: 'middle' }}>
+                        <td>Total Bayar</td>
+                        <td>
+                          <p className="mb-0 text-dark fw-semibold" id="total">
+                            {data.price > 0 ? <span>Rp. {data.price_discount > 0 ? new Intl.NumberFormat().format(data.price_discount) : new Intl.NumberFormat().format(data.price)}</span> : <span>GRATIS</span>}
                           </p>
                         </td>
                       </tr>
-                      {/* <tr className="pb-2" style="vertical-align: middle">
-                                        <td>Total Bayar</td>
-                                        <td>
-                                            <p className="mb-0 text-dark fw-semibold" id="total">
-                                                @if ($ecourse->price > 0)
-                                                    Rp.
-                                                    {{ $ecourse->price_discount > 0 ? number_format($ecourse->price_discount) : number_format($ecourse->price) }}
-                                                @else
-                                                    GRATIS
-                                                @endif
-                                            </p>
-                                        </td>
-                                    </tr> */}
                     </table>
 
                     {data.price > 0 && (

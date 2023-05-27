@@ -1,15 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
-import Beranda from '../Pages/Home/Beranda';
-import Kelas from '../Pages/Home/ecourse/Kelas';
-import KelasDetail from '../Pages/Home/ecourse/KelasDetail';
+import Beranda from '../Pages/Home/Home';
+import Kelas from '../Pages/Home/ecourse/Index';
+import KelasDetail from '../Pages/Home/ecourse/Detail';
 import KelasCheckout from '../Pages/Home/ecourse/Checkout';
-import Event from '../Pages/Home/event/Event';
-import EventDetail from '../Pages/Home/event/EventDetail';
-import SourceCode from '../Pages/Home/resources/SourceCode';
-import SourceCodeDetail from '../Pages/Home/resources/SourceCode-Detail';
-import Artikel from '../Pages/Home/articles/Artikel';
-import ArtikelDetail from '../Pages/Home/articles/ArtikelDetail';
+import Event from '../Pages/Home/event/Index';
+import EventDetail from '../Pages/Home/event/Detail';
+import SourceCode from '../Pages/Home/resources/Index';
+import SourceCodeDetail from '../Pages/Home/resources/Detail';
+import SourceCodeCheckout from '../Pages/Home/resources/Checkout';
+import Artikel from '../Pages/Home/articles/Index';
+import ArtikelDetail from '../Pages/Home/articles/Detail';
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
 
@@ -24,6 +25,7 @@ export default function Home() {
       <Route path="/event/event-detail" element={<EventDetail />} />
       <Route path="/source-code" element={<SourceCode />} />
       <Route path="/source-code/detail" element={<SourceCodeDetail />} />
+      <Route path="/source-code/detail/checkout" element={<SourceCodeCheckout />} />
       <Route path="/artikel" element={<Artikel />} />
       <Route path="/artikel/artikel-detail" element={<ArtikelDetail />} />
       <Route path="/login" element={<Login />} />

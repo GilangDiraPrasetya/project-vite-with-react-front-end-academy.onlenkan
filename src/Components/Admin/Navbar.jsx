@@ -1,6 +1,7 @@
-import Logo from '../../Images/logo-official-blue.png';
-import Person from '../../Images/artikel/person1.png';
 import { Link } from 'react-router-dom';
+
+import Logo from '../../assets/images/logo/logo-official-blue.png';
+import Person from '../../Images/artikel/person1.png';
 
 export default function Navbar() {
   return (

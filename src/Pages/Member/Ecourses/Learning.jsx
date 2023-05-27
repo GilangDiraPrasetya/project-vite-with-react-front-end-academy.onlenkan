@@ -1,7 +1,10 @@
-import { Cross, MoreHorizontalFill, Play, TelegramFill, TwoLineHorizontal } from 'akar-icons';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../../Images/logo-official-blue.png';
+
+import logo from '../../../assets/images/logo/logo-official-blue.png';
+
+import { Cross, MoreHorizontalFill, Play, TelegramFill, TwoLineHorizontal } from 'akar-icons';
+
 import video1 from '../../../Images/video1.mp4';
 import Footer from '../../../Components/Member/Footer';
 

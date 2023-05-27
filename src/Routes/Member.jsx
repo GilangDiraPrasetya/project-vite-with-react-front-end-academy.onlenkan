@@ -22,6 +22,7 @@ export default function Member() {
   return (
     <Routes>
       <Route path="/member" element={<Dashboard />} />
+      <Route path="/member/dashboard" element={<Dashboard />} />
 
       <Route path="/member/informasi-terbaru" element={<Information />} />
 

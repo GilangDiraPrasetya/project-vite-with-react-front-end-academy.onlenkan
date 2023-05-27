@@ -1,92 +1,136 @@
-import { Dashboard, DesktopDevice, MoreHorizontalFill, Schedule } from 'akar-icons';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export default function BottomMenu() {
+function BottomMenu() {
   return (
     <>
-      <div class="bottom-menu fixed-bottom bg-white shadow-sm py-2 container-fluid">
-        <div class="d-flex align-items-center justify-content-between gap-2">
-          <NavLink to="/admin-academy" activeClassName="active" class="btn d-flex align-items-center justify-content-center gap-2 bottom-menu-link">
-            <Dashboard />
-            <p class="fs-7">{/* {{ request()->is('admin-academy') ? 'Dashboard' : '' }} */}Dashboard</p>
-          </NavLink>
-          <NavLink to="/admin-academy/informasi" class="btn d-flex align-items-center justify-content-center gap-2 bottom-menu-link" activeClassName="active">
-            <DesktopDevice />
-            {/* {{ request()->is('admin-academy/ecourses*') ? 'E-Course' : '' }} */}E-Course
-          </NavLink>
-          <NavLink to="/admin-academy/ecourses" class="btn d-flex align-items-center justify-content-center gap-2 bottom-menu-link" activeClassName="active">
-            <Schedule />
-            {/* {{ request()->is('admin-academy/manajemen-event*') ? 'Event' : '' }} */}Event
-          </NavLink>
-          <a
+      <div className="bottom-menu fixed-bottom bg-white shadow-sm py-2 container-fluid">
+        <div className="d-flex align-items-center justify-content-between gap-2">
+          <Link to="/admin-academy" className={`btn d-flex align-items-center justify-content-center gap-2 bottom-menu-link ${window.location.pathname === '/admin-academy' ? 'active' : ''}`}>
+            <i className="ai-dashboard"></i>
+            <p className="fs-7">{window.location.pathname === '/admin-academy' ? 'Dashboard' : ''}</p>
+          </Link>
+          <Link to="/admin-academy/ecourses" className={`btn d-flex align-items-center justify-content-center gap-2 bottom-menu-link ${window.location.pathname.startsWith('/admin-academy/ecourses') ? 'active' : ''}`}>
+            <i className="ai-desktop-device"></i>
+            {window.location.pathname.startsWith('/admin-academy/ecourses') ? 'E-Course' : ''}
+          </Link>
+          <Link to="/admin-academy/manajemen-event" className={`btn d-flex align-items-center justify-content-center gap-2 bottom-menu-link ${window.location.pathname.startsWith('/admin-academy/manajemen-event') ? 'active' : ''}`}>
+            <i className="ai-schedule"></i>
+            {window.location.pathname.startsWith('/admin-academy/manajemen-event') ? 'Event' : ''}
+          </Link>
+          <Link
             to="#"
-            type="button"
-            data-bs-target="#modalBottomMenu"
-            data-bs-toggle="modal"
-            class="btn d-flex align-items-center justify-content-center gap-2 bottom-menu-link {{ request()->is('admin-academy/informasi*') || request()->is('admin-academy/artikel*') || request()->is('admin-academy/source-code*') || request()->is('admin-academy/instructor*') || request()->is('admin-academy/kategori*') || request()->is('admin-academy/members*') || request()->is('admin-academy/users*') ? 'active' : '' }}"
+            data-bs-target="#menuCanvas"
+            data-bs-toggle="offcanvas"
+            className={`btn d-flex align-items-center justify-content-center gap-2 bottom-menu-link ${
+              window.location.pathname.startsWith('/admin-academy/informasi') ||
+              window.location.pathname.startsWith('/admin-academy/artikel') ||
+              window.location.pathname.startsWith('/admin-academy/source-code') ||
+              window.location.pathname.startsWith('/admin-academy/instructor') ||
+              window.location.pathname.startsWith('/admin-academy/kategori') ||
+              window.location.pathname.startsWith('/admin-academy/members') ||
+              window.location.pathname.startsWith('/admin-academy/users') ||
+              window.location.pathname.startsWith('/admin-academy/vouchers') ||
+              window.location.pathname.startsWith('/admin-academy/reviews')
+                ? 'active'
+                : ''
+            }`}
           >
-            <MoreHorizontalFill />
-            <p class="fs-7">
-              Artikel
-              {/* @if (request()->is('admin-academy/artikel*'))
-                    Artikel
-                @elseif(request()->is('admin-academy/source-code*'))
-                    Source Code
-                @elseif (request()->is('admin-academy/instructor*'))
-                    Mentor
-                @elseif (request()->is('admin-academy/kategori*'))
-                    Kategori Event
-                @elseif (request()->is('admin-academy/members*'))
-                    Member
-                @elseif (request()->is('admin-academy/users*'))
-                    User
-                @elseif (request()->is('admin-academy/informasi*'))
-                    Informasi
-                @else
-                    Lainnya
-                @endif */}
+            <i className="ai-more-horizontal-fill"></i>
+            <p className="fs-7">
+              {window.location.pathname.startsWith('/admin-academy/artikel')
+                ? 'Artikel'
+                : window.location.pathname.startsWith('/admin-academy/source-code')
+                ? 'Source Code'
+                : window.location.pathname.startsWith('/admin-academy/instructor')
+                ? 'Mentor'
+                : window.location.pathname.startsWith('/admin-academy/kategori')
+                ? 'Kategori Event'
+                : window.location.pathname.startsWith('/admin-academy/members')
+                ? 'Member'
+                : window.location.pathname.startsWith('/admin-academy/users')
+                ? 'User'
+                : window.location.pathname.startsWith('/admin-academy/informasi')
+                ? 'Informasi'
+                : window.location.pathname.startsWith('/admin-academy/vouchers')
+                ? 'Vourchers'
+                : window.location.pathname.startsWith('/admin-academy/review')
+                ? 'Reviews'
+                : 'Lainnya'}
             </p>
-          </a>
+          </Link>
         </div>
       </div>
 
-      <div class="modal fade" id="modalBottomMenu" tabindex="-1" aria-labelledby="modalBottomMenuLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header border-0">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <a to="{{ route('informasi.index') }}" class="btn d-block mb-2 {{ request()->is('admin-academy/informasi*') ? 'text-primary' : '' }}">
-                Manajemen Informasi
-              </a>
-              <a to="{{ route('artikel.index') }}" class="btn d-block mb-2 {{ request()->is('admin-academy/artikel*') ? 'text-primary' : '' }}">
-                Manajemen Artikel
-              </a>
-              <a to="{{ route('source-code.index') }}" class="btn d-block mb-2 {{ request()->is('admin-academy/source-code*') ? 'text-primary' : '' }}">
-                Source Code
-              </a>
-              <a to="{{ route('instructor-ecourse.index') }}" class="btn d-block mb-2 {{ request()->is('admin-academy/instructor*') ? 'text-primary' : '' }}">
-                Instructor E-Course
-              </a>
-              <a to="{{ route('kategori-ecourse.index') }}" class="btn d-block mb-2 {{ request()->is('admin-academy/kategori*') ? 'text-primary' : '' }}">
-                Kategori E-Course
-              </a>
-              <a to="{{ route('members.index') }}" class="btn d-block mb-2 {{ request()->is('admin-academy/members*') ? 'text-primary' : '' }}">
-                Member Platform
-              </a>
-              <a to="{{ route('users.index') }}" class="btn d-block mb-2 {{ request()->is('admin-academy/users*') ? 'text-primary' : '' }}">
-                User Platform
-              </a>
-              <a to="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="btn d-block mb-2 text-danger mt-3">
-                Log Out
-              </a>
-              <form action="{{ route('logout') }}" method="POST" id="logout-form" class="d-none"></form>
-            </div>
+      <div className="offcanvas offcanvas-start" tabIndex="-1" id="menuCanvas" aria-labelledby="menuCanvasLabel">
+        <div className="offcanvas-header">
+          <h5 className="offcanvas-title" id="menuCanvasLabel">
+            Menu
+          </h5>
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div className="offcanvas-body">
+          <div className="sidebar w-100">
+            <p className="text-secondary fs-7 fw-semibold mb-2 ms-3">Basic</p>
+            <Link to="/admin-academy" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname === '/admin-academy' ? 'active' : ''}`}>
+              <i className="ai-dashboard"></i> Dashboard
+            </Link>
+            <Link to="/admin-academy/informasi" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname.startsWith('/admin-academy/informasi') ? 'active' : ''}`}>
+              <i className="ai-info"></i> Update Informasi
+            </Link>
+            <p className="text-secondary fs-7 fw-semibold mb-2 ms-3 mt-4">E-Course</p>
+            <Link
+              to="/admin-academy/ecourses"
+              className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${
+                window.location.pathname.startsWith('/admin-academy/ecourses') || window.location.pathname.startsWith('/admin-academy/kategori-ecourse') ? 'active' : ''
+              }`}
+            >
+              <i className="ai-desktop-device"></i> E-Course
+            </Link>
+            <Link to="/admin-academy/instructor-ecourse" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname.startsWith('/admin-academy/instructor-ecourse') ? 'active' : ''}`}>
+              <i className="ai-people-multiple"></i> Instructor
+            </Link>
+            <Link to="/admin-academy/manajemen-event" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname.startsWith('/admin-academy/manajemen-event') ? 'active' : ''}`}>
+              <i className="ai-schedule"></i> Event
+            </Link>
+            <Link to="/admin-academy/members" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname.startsWith('/admin-academy/members') ? 'active' : ''}`}>
+              <i className="ai-people-group"></i> Member Platform
+            </Link>
+            <Link to="/admin-academy/review-ecourse" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname.startsWith('/admin-academy/review-ecourse') ? 'active' : ''}`}>
+              <i className="ai-thumbs-up"></i> Review
+            </Link>
+            <Link to="/admin-academy/vouchers" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname.startsWith('/admin-academy/vouchers') ? 'active' : ''}`}>
+              <i className="ai-percentage"></i> Voucher
+            </Link>
+            <p className="text-secondary fs-7 fw-semibold mb-2 ms-3 mt-4">Resource</p>
+            <Link
+              to="/admin-academy/source-code"
+              className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${
+                window.location.pathname.startsWith('/admin-academy/source-code') || window.location.pathname.startsWith('/admin-academy/kategori-source-code') ? 'active' : ''
+              }`}
+            >
+              <i className="ai-briefcase"></i> Source Code
+            </Link>
+            <Link
+              to="/admin-academy/artikel"
+              className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${
+                window.location.pathname.startsWith('/admin-academy/artikel') || window.location.pathname.startsWith('/admin-academy/kategori-artikel') ? 'active' : ''
+              }`}
+            >
+              <i className="ai-newspaper"></i> Artikel
+            </Link>
+            <p className="text-secondary fs-7 fw-semibold mb-2 ms-3 mt-4">Manajemen Platform</p>
+            <Link to="/admin-academy/users" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname.startsWith('/admin-academy/user') ? 'active' : ''}`}>
+              <i className="ai-people-multiple"></i> User
+            </Link>
+            <Link to="/admin-academy/profil" className={`sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1 ${window.location.pathname.startsWith('/admin-academy/profil') ? 'active' : ''}`}>
+              <i className="ai-gear"></i> My Profile
+            </Link>
           </div>
         </div>
       </div>
     </>
   );
 }
+
+export default BottomMenu;
+

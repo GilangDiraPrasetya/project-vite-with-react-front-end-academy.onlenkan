@@ -5,10 +5,12 @@ import Member from '../../Layouts/Member';
 import EcourseCard from './Ecourses/Ecourse-Card';
 
 export default function Dashboard() {
+  const name = localStorage.getItem('name');
+
   return (
     <Member>
       <section className="py-4">
-        <h2 className="text-dark">Selamat Datang Kembali, Gilang Dira Prasetya</h2>
+        <h2 className="text-dark">Selamat Datang Kembali, {name}</h2>
         <div className="row mt-5">
           <p className="text-secondary text-uppercase fs-7 fw-semibold mb-2">overview</p>
           <Link to="/member/kelas-saya" className="col-md-3 col-6">
@@ -63,7 +65,9 @@ export default function Dashboard() {
 
         <div className="row mt-5">
           <h5 className="text-dark fw-semibold mb-3">Kelas yang Kamu Miliki</h5>
-          <div className="col-md-3"><EcourseCard/></div>
+          <div className="col-md-3">
+            <EcourseCard />
+          </div>
 
           {/* @if ($members->count() != 0)
                 @foreach ($members as $item)

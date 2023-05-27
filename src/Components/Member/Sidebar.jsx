@@ -1,7 +1,9 @@
 import React from 'react';
-import Logo from '../../Images/logo-official-blue.png';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Basket, Briefcase, Dashboard, DesktopDevice, Folder, Info, Newspaper, Schedule, ThumbsUp } from 'akar-icons';
+import { Link, NavLink } from 'react-router-dom';
+
+import menus from './Menu-Data';
+
+import Logo from '../../assets/images/logo/logo-official-blue.png';
 
 export default function Sidebar() {
   return (
@@ -10,7 +12,19 @@ export default function Sidebar() {
         <img src={Logo} alt="" />
       </Link>
 
-      <p className="text-secondary fs-7 fw-semibold mb-2 ms-3">Basic</p>
+      {menus.map((menu, key) => (
+        <React.Fragment key={key}>
+          <p className="text-secondary fs-7 fw-semibold mb-2 ms-3">{menu.subMenu}</p>
+          {menu.links.map((link, index) => (
+            <NavLink key={index} to={link.to} activeClassName="active" className="sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1">
+              <i className={link.icon}></i>
+              {link.name}
+            </NavLink>
+          ))}
+        </React.Fragment>
+      ))}
+
+      {/* <p className="text-secondary fs-7 fw-semibold mb-2 ms-3">Basic</p>
       <NavLink to="/member/" activeClassName="active" className="sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1">
         <Dashboard /> Dashboard
       </NavLink>
@@ -45,7 +59,7 @@ export default function Sidebar() {
       </NavLink>
       <NavLink to="/member/transaksi" activeClassName="active" className="sidebar-link btn py-2 px-3 d-flex align-items-center gap-2 mb-1">
         <Basket /> Transaksi
-      </NavLink>
+      </NavLink> */}
     </aside>
   );
 }

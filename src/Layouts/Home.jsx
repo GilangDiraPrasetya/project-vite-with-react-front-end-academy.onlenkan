@@ -1,9 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from '.././Components/Home/Navbar';
 import Footer from '.././Components/Home/Footer';
 
 export default function Home({ children }) {
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    setIsAuthenticated(false);
+    setName('');
+    setEmail('');
+  };
+  
   return (
     <body className="homepage">
       <Navbar />
