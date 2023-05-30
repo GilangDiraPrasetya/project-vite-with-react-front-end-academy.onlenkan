@@ -35,11 +35,11 @@ const Login = () => {
 
     await Api.post('login', formData)
       .then((response) => {
-        // console.log(response.data.success);
+        // console.log(response.data.data.token);
         if (response.data.success === true) {
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('name', response.data.name);
-          localStorage.setItem('email', response.data.email);
+          localStorage.setItem('token', response.data.data.token);
+          localStorage.setItem('name', response.data.data.name);
+          localStorage.setItem('email', response.data.data.email);
 
           navigate('/');
         } else {
