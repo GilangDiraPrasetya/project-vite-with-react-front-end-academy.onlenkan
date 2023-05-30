@@ -6,22 +6,18 @@ import Home from '../../Layouts/Home';
 import Api from '../../Api';
 
 function Beranda() {
-  const [CourseData, setCourseData] = useState([]);
-
   useEffect(() => {
     // axios.get(`https://api-academy.onlenkan.com/api/get-courses`).then((response) => setCourseData(response.data.data));
     Api.get('get-courses').then((response) => setCourseData(response.data.data));
   }, []);
 
+  const [CourseData, setCourseData] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
     if (token) {
       setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
     }
   }, []);
 

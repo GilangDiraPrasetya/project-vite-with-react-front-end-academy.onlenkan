@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Home from '../../../Layouts/Home';
 
+import mandiriLogo from '../../../assets/images/bank-logo-mandiri.png';
+
 import axios from 'axios';
 import Api from '../../../Api';
 
@@ -99,7 +101,7 @@ function KelasCheckout() {
                     {data.price > 0 && (
                       <div>
                         <h5 className="fw-semibold text-dark mb-3 mt-5">Transfer Pembayaran</h5>
-                        <img src="" alt="Bank Mandiri Logo" width="80" className="mb-3" />
+                        <img src={mandiriLogo} alt="Bank Mandiri Logo" width="80" className="mb-3" />
                         <p className="text-dark fw-normal">Gamma Kristian</p>
                         <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
                           <h5 className="text-dark fw-semibold" id="bankAccountNumber">

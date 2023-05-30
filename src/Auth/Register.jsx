@@ -24,13 +24,14 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-
   const [validation, setValidation] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
 
   const registerHandler = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const formData = new FormData();
 
@@ -45,11 +46,13 @@ const Register = () => {
         localStorage.setItem('token', response.data.data.token);
         localStorage.setItem('name', response.data.data.name);
         localStorage.setItem('email', response.data.data.email);
+        localStorage.setItem('phone_number', response.data.data.phone_number);
 
         navigate('/');
       })
       .catch((error) => {
-        setValidation(error.response.data);
+        setValidation(error.response.data.data);
+        setIsSubmitting(false);
       });
   };
 
@@ -127,7 +130,8 @@ const Register = () => {
                 </div>
 
                 <button id="submit" className="btn btn-primary w-100" type="submit">
-                  Register
+                  {isSubmitting ? <i className="bx bx-loader-circle bx-spin bx-rotate-180"> </i> : 'Register'}
+                  {isSubmitting && <span> Memuat...</span>}
                 </button>
                 <p className="text-secondary text-center mt-2">
                   Telah Memiliki Akun? <Link to="/login">Log In!</Link>

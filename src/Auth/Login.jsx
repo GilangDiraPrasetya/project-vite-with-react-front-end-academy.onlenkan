@@ -16,39 +16,48 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validation, setValidation] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      navigate('/');
+      navigate('/member');
     }
   }, []);
 
   const loginHandler = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const formData = new FormData();
-
     formData.append('email', email);
     formData.append('password', password);
 
     await Api.post('login', formData)
       .then((response) => {
-        // console.log(response.data.data.token);
         if (response.data.success === true) {
           localStorage.setItem('token', response.data.data.token);
           localStorage.setItem('name', response.data.data.name);
-          localStorage.setItem('email', response.data.data.email);
+          localStorage.setItem('phone_number', response.data.data.phone_number);
+          localStorage.setItem('social_instagram', response.data.data.social_instagram);
+          localStorage.setItem('social_twitter', response.data.data.social_twitter);
+          localStorage.setItem('social_tiktok', response.data.data.social_tiktok);
+          localStorage.setItem('social_linkedin', response.data.data.social_linkedin);
+          localStorage.setItem('social_youtube', response.data.data.social_youtube);
+          localStorage.setItem('social_website', response.data.data.social_website);
+          localStorage.setItem('headline', response.data.data.headline);
+          localStorage.setItem('description', response.data.data.description);
+          localStorage.setItem('photo', response.data.data.photo);
 
           navigate('/');
         } else {
-          setValidation(response.data);
+          setValidation(response.data.data);
+          setIsSubmitting(false);
         }
       })
-      // })
       .catch((error) => {
-        setValidation(error.response.data);
+        setValidation(error.response.data.data);
       });
   };
 
@@ -95,8 +104,9 @@ const Login = () => {
                   {validation.password && <div className="alert alert-danger">{validation.password[0]}</div>}
                 </div>
 
-                <button id="submit" className="btn btn-primary w-100" type="submit">
-                  Login
+                <button id="submit" className="btn btn-primary w-100" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? <i className="bx bx-loader-circle bx-spin bx-rotate-180"> </i> : 'Login'}
+                  {isSubmitting && <span> Memuat...</span>}
                 </button>
                 <p className="text-secondary text-center mt-2 mb-3">
                   Belum Memiliki Akun? <Link to="/register">Daftar!</Link>
